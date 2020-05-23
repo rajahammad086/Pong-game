@@ -1,0 +1,83 @@
+// Raja Hammad Mehmood
+// Creating a Player class.
+public class Player{
+
+private String playername_;// stores a player name
+private Hand hand_;//it's keeping a track of the hand
+private int wins_;// saving the wins
+/**
+*This is a constructor for the player
+*@param1 is the name of player
+*/
+public Player(String playername){
+    playername_=playername;// setting the instance variable according to the player's name
+     hand_=new Hand();//initializing the hand
+    wins_=0;
+}
+/**
+* This is a getter for the name
+*@return is the name of player
+*/
+public String getName(){
+    return playername_;
+}
+/**
+* This is a getter for the number of wins
+*@return is the number of wins
+*/
+public int getNumWarsWon(){
+    return wins_;
+}
+/**
+ *This is a getter for the number of cards in the hand
+*@return is the number of cards in the hand
+*/
+public int getNumCards(){
+    return (hand_.getCardCount());
+}
+/**
+ * This is a method to check the remaining cards
+*@return is true if there are cards remaining and vice versa.
+*/
+public boolean hasCards(){
+    if(hand_.getCardCount()!=0){
+        return true; 
+    }
+    else{
+        return false;
+    }
+}
+/**
+ *deals the specified number of cards from the deck into the player's hand
+*@param1 is deck of cards.
+*@param2 is the number of cards to add in the hand.
+*/
+public void dealCards(Deck deck, int nocards){
+    for(int count=0; count<nocards;count++){
+       hand_.addCard(deck.dealCard());
+    }
+}
+/**
+ * gets the first card from the player's hand, removes the card from the hand, and returns the card
+*@return is the initial card
+*/
+public Card playCard(){
+    Card card=hand_.getCard(0);
+    hand_.removeCard(card);
+    return card;
+}
+/**
+ * moves the winning cards to the player's hand in a random order, and increments the number of times the player has won a war
+* @ param1 is the hand of winning cards
+*/
+public void warWon(Hand cardswon){
+    for (; cardswon.getCardCount() > 0;) {
+						int index = (int) (Math.random() * cardswon.getCardCount());
+						Card card = cardswon.getCard(index);
+						cardswon.removeCard(index);
+						hand_.addCard(card);
+					}
+     wins_++;               
+}
+
+}
